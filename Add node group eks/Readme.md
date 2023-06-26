@@ -1,0 +1,1 @@
+eksctl create nodegroup -f 'file.yaml' --profile (aws profile cá nhân))

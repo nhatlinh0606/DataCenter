@@ -1,0 +1,67 @@
+Create a linked server with Transact-SQL
+
+
+***tạo database
+
+USE master
+GO
+IF NOT EXISTS (
+   SELECT name
+   FROM sys.databases
+   WHERE name = N'TutorialDB'
+)
+CREATE DATABASE [TutorialDB]
+GO
+
+-----
+
+
+*** create schema full
+
+USE Test2;
+GO
+
+CREATE SCHEMA [schema2] AUTHORIZATION dbo;
+GO
+
+-----
+
+
+***view name server
+
+SELECT @@SERVERNAME AS 'Server Name'
+
+---
+
+*** view linked server
+
+EXEC sp_linkedservers;
+
+-----
+
+*** add  sp_addlinkedserver (Transact-SQL)
+
+EXEC sp_addlinkedserver   
+   @server = N'e3e62ed12a1f',  
+   @srvproduct=N'',  
+   @provider=N'SQLNCLI',  
+   @datasrc=N'e3e62ed12a1f\ACCTG';
+
+
+----
+
+*** CREATE LOGIN (Transact-SQL)
+ 
+CREATE LOGIN abcd WITH PASSWORD = 'Aqswde1234', DEFAULT_DATABASE = Test2, DEFAULT_LANGUAGE = English;
+
+
+----
+
+***  sp_addlinkedsrvlogin (Transact-SQL) 
+
+EXEC sp_addlinkedsrvlogin
+     @rmtsrvname = 'daa66411c331\ACCTG',
+     @useself = 'FALSE',
+     @locallogin = 'sa',
+     @rmtuser = 'abcd',
+     @rmtpassword = 'Aqswde1234';

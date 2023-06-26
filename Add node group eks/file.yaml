@@ -1,0 +1,24 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: unicloud-extend-prod-eks
+  region: ap-southeast-1
+
+managedNodeGroups:
+  - name: ng-unicloudai
+    labels: { app: unicloudai }
+    instanceType: g4dn.xlarge
+    desiredCapacity: 1
+    #spot: true
+    volumeSize: 80
+    minSize: 1
+    maxSize: 2
+    tags:
+      k8s.io/cluster-autoscaler/node-template/label/project: unicloudai
+    amiFamily: AmazonLinux2
+    privateNetworking: true
+    ssh: # use existing EC2 key
+      publicKeyName: dungvt_key
+    securityGroups:
+      attachIDs: ["sg-047cd795a5e4efb43"]
