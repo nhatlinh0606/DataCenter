@@ -1,6 +1,3 @@
-Create a linked server with Transact-SQL
-
-
 ***tạo database
 
 USE master
